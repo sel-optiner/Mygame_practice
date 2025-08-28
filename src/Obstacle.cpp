@@ -4,13 +4,20 @@ Obstacle::Obstacle(sf::Vector2f size, sf::Vector2f startPos, float speed)
     : speed_(speed) {
     rect_.setSize(size);
     rect_.setOrigin(size * 0.5f);
-    rect_.setPosition(startPos);
+    rect_.setPosition(startPos);      // OK: Vector2f
     rect_.setFillColor(sf::Color::Red);
 }
 
 void Obstacle::update(float dt, float resetX) {
-    rect_.move(-speed_ * dt, 0);
-    if (rect_.getPosition().x < 0) {
-        rect_.setPosition(resetX, rect_.getPosition().y); // 画面外に出たら右端に戻す
+    // move は Vector2f を渡す
+    rect_.move(sf::Vector2f(-speed_ * dt, 0.f));
+
+    if (rect_.getPosition().x < 0.f) {
+        rect_.setPosition(sf::Vector2f(resetX, rect_.getPosition().y)); // Vector2f
     }
 }
+
+void Obstacle::draw(sf::RenderWindow& window) const {
+    window.draw(rect_);
+}
+

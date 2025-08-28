@@ -13,7 +13,7 @@ add_executable(SideScrollDemo
 )
 
 target_include_directories(SideScrollDemo PRIVATE src)
-
+target_include_directories(MyGame PRIVATE ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries(SideScrollDemo PRIVATE
     SFML::Graphics
     SFML::Window
